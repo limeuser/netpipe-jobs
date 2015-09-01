@@ -1,13 +1,12 @@
-package cn.oasistech.job;
+package mjoys.netpipe.job;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import netpipe.pipe.Job;
-import netpipe.pipe.Task;
-import netpipe.pipe.InPipe;
-import netpipe.pipe.Out;
-import netpipe.pipe.OutPipe;
+import mjoys.netpipe.pipe.InPipe;
+import mjoys.netpipe.pipe.Job;
+import mjoys.netpipe.pipe.OutPipe;
+import mjoys.netpipe.pipe.Task;
 
 @Job(name="wordcounter")
 public class WordCounter {
@@ -27,12 +26,12 @@ public class WordCounter {
     private Map<String, Integer> wordCount = new HashMap<String, Integer>();
     
     @Task(name="text", out={"lines"})
-    public void textSource(@Out OutPipe<String> linesPipe) {
+    public void textSource(OutPipe<String> linesPipe) {
         linesPipe.write("skdfjs\r\n");
     }
     
     @Task(in={"lines"}, out={"words"})
-    public void splitWords(InPipe<String> linesPipe, @Out OutPipe<String> wordsPipe) {
+    public void splitWords(InPipe<String> linesPipe, OutPipe<String> wordsPipe) {
         String line;
         while (true) {
             line = linesPipe.read();
